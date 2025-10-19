@@ -1,0 +1,11 @@
+backup_now:
+  name: Create configuration backup
+  description: >-
+    Create a zip archive containing key Home Assistant configuration files and directories.
+  fields:
+    paths:
+      name: Paths
+      description: Optional list of relative paths within the Home Assistant configuration directory to include in the backup.
+      example: ["configuration.yaml", "blueprints"]
+      selector:
+        object:
