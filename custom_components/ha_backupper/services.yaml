@@ -9,3 +9,74 @@ backup_now:
       example: ["configuration.yaml", "blueprints"]
       selector:
         object:
+download_backup:
+  name: Copy backup to local destination
+  description: >-
+    Copy an existing backup archive from the integration's backup directory to another path on the local filesystem.
+  fields:
+    backup_name:
+      name: Backup name
+      description: Name of the backup file to copy. The ".zip" extension may be omitted.
+      example: ha_backup_20240101_000000.zip
+      required: true
+      selector:
+        text:
+    destination:
+      name: Destination path
+      description: Absolute path or relative path (from the Home Assistant configuration directory) where the backup should be copied.
+      example: /share/backups
+      required: true
+      selector:
+        text:
+    overwrite:
+      name: Overwrite
+      description: Overwrite the destination file if it already exists.
+      default: false
+      selector:
+        boolean:
+upload_backup:
+  name: Import existing backup
+  description: >-
+    Copy a zip archive from the local filesystem into the integration's backup directory.
+  fields:
+    source:
+      name: Source path
+      description: Absolute path or relative path (from the Home Assistant configuration directory) to the zip archive to import.
+      example: /media/usb/ha_backup.zip
+      required: true
+      selector:
+        text:
+    backup_name:
+      name: Backup name
+      description: Optional name for the imported file. Defaults to the source file name.
+      selector:
+        text:
+    overwrite:
+      name: Overwrite
+      description: Overwrite the existing backup if a file with the same name already exists.
+      default: false
+      selector:
+        boolean:
+restore_backup:
+  name: Restore from backup
+  description: >-
+    Restore files from a backup archive into the Home Assistant configuration directory. Use with caution.
+  fields:
+    backup_name:
+      name: Backup name
+      description: Name of the backup archive to restore. The ".zip" extension may be omitted.
+      example: ha_backup_20240101_000000.zip
+      required: true
+      selector:
+        text:
+    targets:
+      name: Targets
+      description: Optional list of relative file or directory paths within the archive to restore. When omitted, all files are restored.
+      selector:
+        object:
+    overwrite:
+      name: Overwrite
+      description: Overwrite existing files when restoring.
+      default: false
+      selector:
+        boolean:
